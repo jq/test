@@ -44,6 +44,15 @@ public class Interval {
         }
         v.addLast(a);
     }
+
+    public static LinkedList<Interval> insert(LinkedList<Interval> v) {
+        LinkedList<Interval> r = new LinkedList<Interval>();
+        for (Interval b : v) {
+            insert(r, b);
+        }
+        return r;
+    }
+
     public static Interval getInterval(int s, int e) {
         Interval i = new Interval();
         i.s = s;
@@ -63,6 +72,9 @@ public class Interval {
         Interval i9 = getInterval(12, 16);
         Interval i10 = getInterval(4, 9);
         Interval i11 = getInterval(3, 10);
+        Interval i12 = getInterval(15, 18);
+        Interval i13 = getInterval(2, 6);
+        Interval i14 = getInterval(1, 6);
         Interval a1[] = {i1, i2};
         Interval b1[] = {i4, i2};
         LinkedList<Interval> c1 = new LinkedList<Interval>(Arrays.asList(a1));
@@ -79,6 +91,12 @@ public class Interval {
         Print.log(c2);
         Assert.assertEquals(c2,d2);
         
+        Interval a3[] = {i1, i13, i8, i12};
+        Interval b3[] = {i14, i8, i12};
+        LinkedList<Interval> c3 = new LinkedList<Interval>(Arrays.asList(a3));
+        LinkedList<Interval> d3 = new LinkedList<Interval>(Arrays.asList(b3));
+        LinkedList<Interval> r = insert(c3);
+        Assert.assertEquals(r,d3);
     }
 
 }
