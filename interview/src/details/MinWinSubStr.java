@@ -14,13 +14,12 @@ public class MinWinSubStr {
 			char a = s.charAt(i);
 			e[a]++;
 		}
-		int x1=0, y1=Integer.MAX_VALUE;
+		int minStart=0, minEndIdx=Integer.MAX_VALUE;
 
 		int x = 0;
         int[] ap = new int[256];
-        for (int i = 0; i < m.length(); i++) {
-            int y = i + 1;
-            char a = m.charAt(i);
+        for (int end = 0; end < m.length(); end++) {
+            char a = m.charAt(end);
             if (e[a] > 0) {
                 ap[a]++;
                 if (ap[a] <= e[a] && t > 0) {
@@ -42,13 +41,14 @@ public class MinWinSubStr {
                     }
 
                     // find solution
-                    int len = y - x;
-                    System.out.println(y + " " + x);
+                    int endIdx = end + 1;
+                    int len = endIdx - x;
+                    System.out.println(end + " " + x);
                     if (len == s.length()) {
-                        return m.substring(x, y);
-                    } else if (len < (y1-x1)) {
-                        y1 = y;
-                        x1 = x;
+                        return m.substring(x, endIdx);
+                    } else if (len < (minEndIdx-minStart)) {
+                        minEndIdx = endIdx;
+                        minStart = x;
                     }
                 } else {
                     // no solution                    
@@ -56,8 +56,8 @@ public class MinWinSubStr {
             }
         }
         
-        if ((y1-x1) <= m.length()) {
-            return m.substring(x1, y1);
+        if ((minEndIdx-minStart) <= m.length()) {
+            return m.substring(minStart, minEndIdx);
         } else {
             return "";
         }
