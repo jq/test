@@ -7,18 +7,20 @@ import java.util.Vector;
 import org.junit.Assert;
 import org.junit.Test;
 
+import Util.CollectionGen;
+
 
 public class BFS {
 
 	@Test
 	public void testG() {
 		String[] s = {"hot","dot","dog","lot","log"};
-		Assert.assertEquals(0, bfs("hit", "hit", arrayToMap(s)));
-		Assert.assertEquals(4, bfs("hit", "cog", arrayToMap(s)));
-		Vector<Vector<String>> r = bfsPath("hit", "cog", arrayToMap(s));
+		Assert.assertEquals(0, bfs("hit", "hit", CollectionGen.toMap(s)));
+		Assert.assertEquals(4, bfs("hit", "cog", CollectionGen.toMap(s)));
+		Vector<Vector<String>> r = bfsPath("hit", "cog", CollectionGen.toMap(s));
 		Assert.assertEquals(2, r.size());
 		String[] s1 = {"hot","dot","dog","bot","bog"};
-		r = bfsPath("hit", "cog", arrayToMap(s1));
+		r = bfsPath("hit", "cog", CollectionGen.toMap(s1));
 		Assert.assertEquals(2, r.size());
 	}
 	public static HashSet<String> arrayToSet(String[] s) {
@@ -27,14 +29,6 @@ public class BFS {
 			set.add(str);
 		}
 		return set;
-	}
-	public static HashMap<String, Boolean> arrayToMap(String[] s) {
-		HashMap<String, Boolean> set = new HashMap<String, Boolean>(s.length*2);
-		for (String str : s) {
-			set.put(str, false);
-		}
-		return set;
-
 	}
 	public static Vector<Vector<String>> bfsPath(String start, String end, HashMap<String, Boolean> dict) {
 		if (start.equalsIgnoreCase(end)) return null;
