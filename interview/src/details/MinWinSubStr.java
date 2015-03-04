@@ -8,33 +8,33 @@ import org.junit.Test;
 public class MinWinSubStr {
 	public static String get(String m, String s) {
 	    if (m.length() < s.length()) return "";
-		int[] e = new int[256];
+		int[] expectedCount = new int[256];
 		int t = s.length();
 		for (int i = 0; i < t; i++) {
 			char a = s.charAt(i);
-			e[a]++;
+			expectedCount[a]++;
 		}
 		int minStart=0, minEndIdx=Integer.MAX_VALUE;
 
-		int x = 0;
-        int[] ap = new int[256];
+		int start = 0;
+        int[] count = new int[256];
         for (int end = 0; end < m.length(); end++) {
             char a = m.charAt(end);
-            if (e[a] > 0) {
-                ap[a]++;
-                if (ap[a] <= e[a] && t > 0) {
+            if (expectedCount[a] > 0) {
+                count[a]++;
+                if (count[a] <= expectedCount[a] && t > 0) {
                     t--;
                 }
                 if (t == 0) {
                     // move x
                     char n;
                     while(true) {
-                        n = m.charAt(x);
-                        if (ap[n] > e[n]) {
-                            ap[n]--;
-                            x++;
-                        } else if (ap[n] == 0) {
-                            x++;
+                        n = m.charAt(start);
+                        if (count[n] > expectedCount[n]) {
+                            count[n]--;
+                            start++;
+                        } else if (count[n] == 0) {
+                            start++;
                         } else {
                             break;
                         }
@@ -42,13 +42,13 @@ public class MinWinSubStr {
 
                     // find solution
                     int endIdx = end + 1;
-                    int len = endIdx - x;
-                    System.out.println(end + " " + x);
+                    int len = endIdx - start;
+                    System.out.println(end + " " + start);
                     if (len == s.length()) {
-                        return m.substring(x, endIdx);
+                        return m.substring(start, endIdx);
                     } else if (len < (minEndIdx-minStart)) {
                         minEndIdx = endIdx;
-                        minStart = x;
+                        minStart = start;
                     }
                 } else {
                     // no solution                    
