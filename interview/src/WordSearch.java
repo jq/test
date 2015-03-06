@@ -1,6 +1,7 @@
 import static java.lang.System.out;
 //curl 'https://pad.squareup.com/ep/pad/export/2096052/latest?format=txt' > WordSearch.java && javac WordSearch.java && java -cp . WordSearch
 
+
 /* 
 
 Puzzle
@@ -52,6 +53,8 @@ import java.util.Vector;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import Util.Trie;
 
 public class WordSearch {
 

@@ -1,3 +1,5 @@
+package bfs;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,7 +12,7 @@ import org.junit.Test;
 import Util.CollectionGen;
 
 
-public class BFS {
+public class WordLadderTotal {
 
 	@Test
 	public void testG() {
@@ -22,13 +24,6 @@ public class BFS {
 		String[] s1 = {"hot","dot","dog","bot","bog"};
 		r = bfsPath("hit", "cog", CollectionGen.toMap(s1));
 		Assert.assertEquals(2, r.size());
-	}
-	public static HashSet<String> arrayToSet(String[] s) {
-		HashSet<String> set = new HashSet<String>(s.length*2);
-		for (String str : s) {
-			set.add(str);
-		}
-		return set;
 	}
 	public static Vector<Vector<String>> bfsPath(String start, String end, HashMap<String, Boolean> dict) {
 		if (start.equalsIgnoreCase(end)) return null;

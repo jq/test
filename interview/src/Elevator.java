@@ -9,7 +9,11 @@ public class Elevator {
 	   maxfloor = floor;
 	   currentTask = new int[maxfloor];
    }
-   
+   public static class Task {
+       public int time;
+       public int floor;
+   }
+
    // assume moving 1 floor cost 1 in time
    public int getTotalWaitTime(Vector<Task> tasks) {
 	   // low

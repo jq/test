@@ -63,7 +63,6 @@ public class elevatorTest {
 		int[] d = {2,2,2,3,3,3,2,1,4,2,2};
 		Assert.assertEquals(2, Sort.domiator(d));
 		
-		AllsubStringOfString.decodeFind("sf_j324hj_");
 		int[] i = {2,3,4,5,6,7};
 		Vector<Integer> v = Sort.getMagic(i);
 		Assert.assertEquals(i.length,v.size());
