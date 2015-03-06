@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-
+import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 public abstract class Bfs<T> {
     protected abstract boolean search(T t, T result, Queue<T> nxt, HashMap<T, Boolean> dict);
         
@@ -26,45 +28,51 @@ public abstract class Bfs<T> {
         }
         return 0;
     }
-
-    public static int bfs(String start, String end, HashMap<String, Boolean> dict) {
-        if (start.equalsIgnoreCase(end)) return 0;
-        Queue<String> cur = new LinkedList<String>();
-        Queue<String> nxt = new LinkedList<String>();
+    
+    protected abstract boolean genPath(T t, T result, Queue<T> nxt, HashMap<T, Boolean> dict, HashMap<T, Vector<T>> path);
+    public ArrayList<ArrayList<T>> bfsPath(T start, T end, HashMap<T, Boolean> dict) {
+        if (start.equals(end)) return null;
+        Queue<T> cur = new LinkedList<T>();
+        Queue<T> nxt = new LinkedList<T>();
         cur.add(start);
-        int level = 0;
+        HashMap<T, Vector<T>> path = new HashMap<T, Vector<T>>();
+        path.put(end, new Vector<T>());
         boolean found = false;
         while (!cur.isEmpty() && !found) {
-            ++level;
-            while (!cur.isEmpty() && !found) {
-                String s = cur.poll();
-                StringBuilder buf = new StringBuilder(s);
-                for (int i = 0; i < s.length() && !found; ++i) {
-                    char b = s.charAt(i);
-                    for (char a = 'a'; a <= 'z'; ++a) {
-                        if (a != b) {
-                            buf.setCharAt(i, a);
-                            String n = buf.toString();
-                            buf.setCharAt(i, b);
-                            if (n.equalsIgnoreCase(end)) {
-                                found = true;
-                                break;
-                            }
-                            Boolean has = dict.get(n);
-                            if (has != null && !has.booleanValue()) {
-                                nxt.add(n);
-                                dict.put(n, true);
-                            }
-                        }
-                    }
-                }
+            for (T s : cur) {
+                dict.put(s, true);
             }
-            Queue<String> tmp = cur;
+            while (!cur.isEmpty()) {
+                T s = cur.poll();
+                boolean r = genPath(s, end, nxt, dict, path);
+                if (r) found = true;
+            }
+            Queue<T> tmp = cur;
             cur = nxt;
             nxt = tmp;
         }
-        if (found) return level;
-        return 0;
+        if (!found) return null;
+        ArrayList<ArrayList<T>> result = new ArrayList<ArrayList<T>>();
+        getPath(start, end, result, path, new Vector<T>());
+        return result;
+    }
+
+    public void getPath(T start, T end,ArrayList<ArrayList<T>> result,
+            HashMap<T, Vector<T>> tree, Vector<T> path) {
+        path.add(end);
+        if (end.equals(start)) {
+            ArrayList<T> p = new ArrayList<T>(path);
+            result.add(p);
+            return;
+        }
+
+        Vector<T> v = tree.get(end);
+        if (v != null) {
+            for (T s : v) {
+                getPath(start, s, result, tree, path);
+            }
+        }
+        path.remove(path.size() - 1);
     }
 
 }
