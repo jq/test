@@ -1,9 +1,17 @@
 package Util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class CollectionGen {
+    public static <T> HashSet<T> toSet(T[] t) {
+        HashSet<T> set = new HashSet<T>(t.length*2);
+        for (T str : t) {
+            set.add(str);
+        }
+        return set;
+    }
 
     public static <T,V> HashMap<T, V> toMap(T[] s, V v) {
     	HashMap<T, V> set = new HashMap<T, V>(s.length*2);

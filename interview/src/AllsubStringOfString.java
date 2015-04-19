@@ -1,5 +1,3 @@
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 
@@ -58,7 +56,7 @@ public class AllsubStringOfString {
       }
     }
     return -1;
-  }
+    }
     @Test
     public void test() {
         AllsubStringOfString.decodeFind("sf_j324hj_");

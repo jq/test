@@ -11,7 +11,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 // Each word is guaranteed not to exceed L in length
 // A line other than the last line might contain only one word. What should you do in this case?
-public class TextJust {
+public class TextJustification {
     public static String combine(List<String> s, int spaceSize) {
         StringBuilder b = new StringBuilder();
         int spaceNum = (s.size()-1);      
