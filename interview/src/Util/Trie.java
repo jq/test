@@ -1,49 +1,43 @@
 package Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Trie
-{
-   private TrieNode root;
-   
-   /**
-    * Constructor
-    */
-   public Trie()
-   {
+public class Trie {
+   private final TrieNode root;
+   public Trie() {
       root = new TrieNode();
    }
    
-   /**
-    * Adds a word to the Trie
-    * @param word
-    */
-   public void addWord(String word)
-   {
+   public void addWord(String word)   {
       root.addWord(word);
    }
-   
-   /**
-    * Get the words in the Trie with the given
-    * prefix
-    * @param prefix
-    * @return a List containing String objects containing the words in
-    *         the Trie with the given prefix.
-    */
-   public List getWords(String prefix)
-   {
-      //Find the node which represents the last letter of the prefix
-      TrieNode lastNode = root;
-      for (int i=0; i<prefix.length(); i++)
-      {
-    	  lastNode = lastNode.getNode(prefix.charAt(i));
-      
-    	  //If no node matches, then no words exist, return empty list
-    	  if (lastNode == null) return null;      
-      }
-      
-      //Return the words which eminate from the last node
-      return lastNode.getWords();
+   private TrieNode getNode(String prefix) {
+       TrieNode lastNode = root;
+       for (int i=0; i<prefix.length(); i++)      {
+           lastNode = lastNode.getNode(prefix.charAt(i));
+           if (lastNode == null) return null;      
+       }
+       return lastNode;
+   }
+   public List<String> getWords(String prefix)  {
+       TrieNode lastNode = getNode(prefix);
+       if (lastNode != null) {
+           return lastNode.getWords();
+       } else {
+           return null;
+       }
+   }
+
+   public boolean search(String key) {
+       TrieNode lastNode = getNode(key);
+       if (lastNode != null) {
+           return lastNode.isWord();
+       } else {
+           return false;
+       }
+   }
+   public boolean startWith(String prefix) {
+       TrieNode lastNode = getNode(prefix);
+       return lastNode != null;
    }
 }
